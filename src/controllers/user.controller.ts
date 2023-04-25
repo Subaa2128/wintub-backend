@@ -1,8 +1,9 @@
 import userSchema from "../schema/user.schema";
+import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
 //get all user details
-export const getAllUsers = async (req, res) => {
+export const getAllUsers = async (req: Request, res: Response) => {
   try {
     const data = await userSchema.find({});
     res.json(data);
@@ -12,7 +13,7 @@ export const getAllUsers = async (req, res) => {
 };
 
 // Login function
-export const logIn = async (req, res) => {
+export const logIn = async (req: Request, res: Response) => {
   const email = req.body.email;
   const password = req.body.password;
 
@@ -29,6 +30,7 @@ export const logIn = async (req, res) => {
       { email: isUser.email, role: isUser.role },
       process.env.JWT_SECRET
     );
+
     res.json({ message: "Welcome Back", token: jwtToken, result: isUser });
   } catch (error) {
     console.log("something went wrong");
@@ -36,7 +38,7 @@ export const logIn = async (req, res) => {
 };
 
 ///add user function
-export const adduser = async (req, res) => {
+export const adduser = async (req: Request, res: Response) => {
   const role = req.body.role;
   const email = req.body.email;
   const password = req.body.password;

@@ -1,7 +1,12 @@
 import userSchema from "../schema/user.schema";
+import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
-export const middlerwareUser = async (req, res, next) => {
+export const middlerwareUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const token = req.headers.authorization;
   console.log(req.headers);
 
