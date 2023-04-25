@@ -19,17 +19,17 @@ export const middlerwareUser = async (req, res, next) => {
   //   res.status(500).json({ error: { message: "something went wrong" } });
   // }
 
-  const token =
-    req.body.token || req.query.token || req.headers["x-access-token"];
+  const token = req.headers.authorization;
 
   if (!token) {
     return res.status(403).send("A token is required for authentication");
   }
   try {
-    const decoded = jwt.verify(token, process.env.TOKEN_KEY);
+    const decoded = jwt.verify(token.split(" ")[1], process.env.JWT_SECRET);
     req.user = decoded;
+
+    next();
   } catch (err) {
     return res.status(401).send("Invalid Token");
   }
-  return next();
 };

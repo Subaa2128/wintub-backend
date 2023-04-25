@@ -23,7 +23,7 @@ export const logIn = async (req, res) => {
       return res.json({ error: { message: "User is not registered" } });
 
     if (isUser.password !== password)
-      return res.json({ error: { message: "Invalid Password" } });
+      return res.json({ error: { message: "Invalid credentials" } });
 
     const jwtToken = jwt.sign(
       { email: isUser.email, role: isUser.role },
